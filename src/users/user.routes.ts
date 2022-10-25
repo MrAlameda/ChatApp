@@ -1,6 +1,7 @@
 import express from "express"
 import * as userServises from "./user.services"
 import * as conversationServices from "../conversation/conversation.services"
+import * as messageServices from "../messages/messages.services"
 
 import passport from "passport"
 
@@ -18,26 +19,69 @@ router.get("/",
     ),
     userServises.allUsers)
 
-router.get("/conversations",
-    passport.authenticate(
+router.route("/conversations")
+    .get(passport.authenticate(
         "jwt", { session: false }
     ),
-    conversationServices.allConversation
-)
+        conversationServices.allConversation
+    )
+    .post(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        conversationServices.conversationAdd
+    )
 
-router.get("/conversations/:id",
-    passport.authenticate(
-        "jwt", { session: false }
-    ),
-    conversationServices.conversationById
-)
+// ? ONE CONVERSATION
 
-router.post("/conversations",
+router.route("/conversations/:conversation_id")
+    .get(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        conversationServices.conversationById
+    )
+    .delete(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        conversationServices.conversationDelet
+    )
+    .patch(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        conversationServices.conversationPatch
+    )
+
+router.route("/conversations/:conversation_id/message")
+    .get(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        messageServices.allMessage        
+    )
+    .post(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        messageServices.messageAdd
+    )
+
+router.route("/conversations/:conversation_id/message/:message_id")
+    .get(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        messageServices.messageById        
+    )
+    .delete(passport.authenticate(
+        "jwt", { session: false }
+    ),
+        messageServices.messageDelet        
+    )
+
+router.get("/conversations/:conversation_id/participants",
     passport.authenticate(
         "jwt", { session: false }
     ),
-    conversationServices.conversationAdd
-)
+        conversationServices.porticipantsByIdConversation
+    )
+
+// ? MY INFO
 
 router.route("/me")
     .get(
@@ -50,6 +94,8 @@ router.route("/me")
         passport.authenticate("jwt", { session: false }),
         userServises.updateMyUser
     )
+
+// ? GET USERS
 
 router.route("/:id")
     .get(userServises.userById)

@@ -16,13 +16,21 @@ export const getParticipantsById=async(id:string)=>{
     return data
 }
 
+export const getParticipantsByConversation=async(conversationId:string)=>{
+    const data=await Participanst.findAll({
+        where:{
+            conversation_id:conversationId
+        }
+    })
+    return data
+}
+
 export const createParticipants=async(data:any,id:any)=>{
-    const newParticipants=await Participanst.create({
+    await Participanst.create({
         id:uuid.v4(),
-        conversationId: data.id,
+        conversationId: data,
         userId: id
     })
-    return newParticipants
 }
 
 

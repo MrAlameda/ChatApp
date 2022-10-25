@@ -3,8 +3,12 @@ const uuid=require("uuid")
 
 import Conversation from "../models/conversation.model"
 
-export const getAllConversation=async()=>{
-    const data=await Conversation.findAll()
+export const getAllConversation=async(id:string)=>{
+    const data=await Conversation.findAll({
+        where:{
+            userId:id
+        }
+    })
     return data
 }
 
@@ -30,6 +34,15 @@ export const createConversation=async(data:any,id:any)=>{
 
 export const deleteConversation=async (id:string) => {
     const result=Conversation.destroy({
+        where:{
+            id
+        }
+    })
+    return result
+}
+
+export const patchConversation=async (data:any,id:string) => {
+    const result=await Conversation.update(data,{
         where:{
             id
         }
