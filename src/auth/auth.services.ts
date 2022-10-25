@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import jwt from "jsonwebtoken"
 import loginUser from "./auth.controller";
 import configure from "../config";
 
-const uselogin=(req:Request,res:Response)=>{
+const uselogin=(req:Request,res:Response,next:NextFunction)=>{
     const {email,password}=req.body
 
     if(email&&password){
@@ -23,6 +23,7 @@ const uselogin=(req:Request,res:Response)=>{
                         message:"correct credential",
                         token
                     })
+                    // res.status(200).redirect("/users/")
                 }else{
                     res.status(401).json({messsage:"Invalid credentials"})
                 }

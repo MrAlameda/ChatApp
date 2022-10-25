@@ -4,6 +4,7 @@ import { getUserById } from "../users/user.controller";
 import JwtStrategy from "passport-jwt"
 import ExtractJwt from "passport-jwt" 
 
+
 export default (passport:any) => {
     const options={
         jwtFromRequest:ExtractJwt.ExtractJwt.fromAuthHeaderWithScheme("jwt"),
@@ -16,7 +17,6 @@ export default (passport:any) => {
                 if(!result){
                     return done(null,false)
                 }
-                console.log("decode jwt",decode)
                 return done(null,decode)
             } catch (error) {
                 return done(error,false)

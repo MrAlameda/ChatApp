@@ -2,12 +2,14 @@ import { Response,Request } from "express";
 import { UserInfo } from "../model";
 import * as userController from "./user.controller"
 
-
-
 export const allUsers=(req:Request,res:Response)=>{
     userController.getAllUser()
-        .then((result:any)=>res.status(200).json(result))
-        .catch((err:Error)=>{res.status(400).json({message:"no hay nada",Error:err.message})})
+        .then((result:any)=>{
+            res.status(200).json(result)
+        })
+        .catch((err:Error)=>{
+            res.status(400).json({message:"no hay nada",Error:err.message})
+        })
 }
 
 export const userById=(req:Request,res:Response)=>{
@@ -23,6 +25,7 @@ export const userById=(req:Request,res:Response)=>{
 
 export const userAdd=(req:Request,res:Response)=>{
     const data:UserInfo=req.body
+    console.log(data)
     if(
            data.phone
         && data.birthday
@@ -54,6 +57,7 @@ export const userAdd=(req:Request,res:Response)=>{
             })
         }
 }
+
 
 export const userPatch=(req:Request,res:Response)=>{
     const id=req.params.id
@@ -91,7 +95,7 @@ export const getMyUser=(req:any,res:Response)=>{
     const id = req.user.id
     
     userController.getUserById(id)
-        .then((result)=>{
+        .then((result:any)=>{
             res.status(200).json(result)
         })
         .catch((err:Error)=>{
