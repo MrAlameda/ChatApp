@@ -2,13 +2,21 @@
 const uuid=require("uuid")
 
 import Conversation from "../models/conversation.model"
+import Participanst from "../models/participants.model"
+import User from "../models/user.model"
 
 export const getAllConversation=async(id:string)=>{
     const data=await Conversation.findAll({
         attributes:["id","title","created_by"],
-        where:{
-            userId:id
+        include:[{
+            model:Participanst,
+            attributes:["id","userId"],
+            include:{
+                model:User,
+                attributes:["firstName","id"],
+            }
         }
+        ]
     })
     return data
 }

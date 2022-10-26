@@ -2,10 +2,15 @@
 const uuid=require("uuid")
 
 import Message from "../models/message.model"
+import User from "../models/user.model"
 
 export const getAllMessage=async()=>{
     const data=await Message.findAll({
-        
+        attributes:["message","id"],
+        include:{
+            model:User,
+            attributes:["id","firstName"]
+        }
     })
     return data
 }

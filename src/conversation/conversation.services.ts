@@ -13,11 +13,11 @@ export const allConversation = (req: any, res: Response) => {
             }
         })
         .catch((err: Error) => {
-            res.status(400).json({ message: "no hay nada", Error: err.message })
+            res.status(400).json({ message: "conversationServices.allConversation error", Error: err.message })
         })
 }
 
-export const allParticipants = (req: Request, res: Response) => {
+export const allParticipants = (req: any, res: Response) => {
     getAllParticipants()
         .then(result => {
             if (result[0]) {
@@ -27,7 +27,7 @@ export const allParticipants = (req: Request, res: Response) => {
             }
         })
         .catch((err: Error) => {
-            res.status(400).json({ message: "no hay nada", Error: err.message })
+            res.status(400).json({ message: "conversationServices.allParticipants error", Error: err.message })
         })
 }
 
@@ -42,7 +42,7 @@ export const porticipantsByIdConversation=(req:Request,res:Response)=>{
         }
     })
     .catch((err: Error) => {
-        res.status(400).json({ message: "no hay nada", Error: err.message })
+        res.status(400).json({ message: "conversationServices.porticipantsByIdConversation error", Error: err.message })
     })
 }
 
