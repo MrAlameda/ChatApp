@@ -5,6 +5,7 @@ import Conversation from "../models/conversation.model"
 
 export const getAllConversation=async(id:string)=>{
     const data=await Conversation.findAll({
+        attributes:["id","title","created_by"],
         where:{
             userId:id
         }
@@ -14,7 +15,8 @@ export const getAllConversation=async(id:string)=>{
 
 export const getConversationById=async(id:string)=>{
     const data = await Conversation.findOne({
-            where:{
+        attributes:["id","title","userId"],    
+        where:{
                 id
             }
         })

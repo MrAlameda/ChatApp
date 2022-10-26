@@ -13,11 +13,17 @@ authMiddleware(passport)
 
 const router = express.Router()
 
+// ! home
+
 router.get("/",
     passport.authenticate(
         "jwt", { session: false }
     ),
     userServises.allUsers)
+
+
+
+// ! ONE CONVERSATION
 
 router.route("/conversations")
     .get(passport.authenticate(
@@ -30,8 +36,6 @@ router.route("/conversations")
     ),
         conversationServices.conversationAdd
     )
-
-// ? ONE CONVERSATION
 
 router.route("/conversations/:conversation_id")
     .get(passport.authenticate(
@@ -50,11 +54,13 @@ router.route("/conversations/:conversation_id")
         conversationServices.conversationPatch
     )
 
+// ! messages
+
 router.route("/conversations/:conversation_id/message")
     .get(passport.authenticate(
         "jwt", { session: false }
     ),
-        messageServices.allMessage        
+        messageServices.allMessage
     )
     .post(passport.authenticate(
         "jwt", { session: false }
@@ -66,20 +72,22 @@ router.route("/conversations/:conversation_id/message/:message_id")
     .get(passport.authenticate(
         "jwt", { session: false }
     ),
-        messageServices.messageById        
+        messageServices.messageById
     )
     .delete(passport.authenticate(
         "jwt", { session: false }
     ),
-        messageServices.messageDelet        
+        messageServices.messageDelet
     )
+
+//! participants
 
 router.get("/conversations/:conversation_id/participants",
     passport.authenticate(
         "jwt", { session: false }
     ),
-        conversationServices.porticipantsByIdConversation
-    )
+    conversationServices.porticipantsByIdConversation
+)
 
 // ? MY INFO
 
