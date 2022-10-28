@@ -12,7 +12,7 @@ export const getAllMessage=async(id:string)=>{
             attributes:["id","firstName"]
         },
         where:{
-            id
+            conversation_id:id
         }
     })
     return data
