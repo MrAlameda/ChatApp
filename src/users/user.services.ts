@@ -8,7 +8,7 @@ export const allUsers=(req:Request,res:Response)=>{
             res.status(200).json(result)
         })
         .catch((err:Error)=>{
-            res.status(400).json({message:"no hay nada",Error:err.message})
+            res.status(400).json({Error:err.message})
         })
 }
 
@@ -119,7 +119,7 @@ export const updateMyUser=(req:any,res:Response)=>{
     const {firstName,lastName,phone,birthday,gender,country}=req.body
     userController.updateUser(id,{firstName,lastName,phone,birthday,gender,country})
         .then(()=>{
-            res.status(202).json({message:`todo bien c:`})
+            res.status(202).json({message:`successful modification`})
         })
         .catch((err:Error)=>{
             res.status(404).json({message:err.message})

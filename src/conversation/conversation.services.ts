@@ -77,7 +77,7 @@ export const conversationAdd = (req: any, res: Response) => {
             })
     } else {
         res.status(400).json({
-            message: "hiciste algo mal",
+            message: "missing data",
             checa: {
                 title: 'string',
                 image_id: 'string',

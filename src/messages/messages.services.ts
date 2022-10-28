@@ -9,11 +9,11 @@ export const allMessage = (req: Request, res: Response) => {
             if (result[0]) {
                 res.status(200).json(result)
             } else {
-                res.status(200).json({ message: "sin mensajes" })
+                res.status(200).json({ message: "no messages" })
             }
         })
         .catch((err: Error) => {
-            res.status(400).json({ message: "no hay nada", Error: err.message })
+            res.status(400).json({ message: "Error in messages", Error: err.message })
         })
 }
 
@@ -44,7 +44,7 @@ export const messageAdd = (req: any, res: Response) => {
             })
     } else {
         res.status(400).json({
-            message: "hiciste algo mal",
+            message: "missing data",
             checa: {
                 message: 'string'
             }
