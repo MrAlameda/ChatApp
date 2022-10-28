@@ -3,7 +3,8 @@ import * as messageController from "./messages.controller"
 import { Response, Request } from "express";
 
 export const allMessage = (req: Request, res: Response) => {
-    messageController.getAllMessage()
+    const id=req.params.conversation_id
+    messageController.getAllMessage(id)
         .then((result: any) => {
             if (result[0]) {
                 res.status(200).json(result)

@@ -4,12 +4,15 @@ const uuid=require("uuid")
 import Message from "../models/message.model"
 import User from "../models/user.model"
 
-export const getAllMessage=async()=>{
+export const getAllMessage=async(id:string)=>{
     const data=await Message.findAll({
         attributes:["message","id"],
         include:{
             model:User,
             attributes:["id","firstName"]
+        },
+        where:{
+            id
         }
     })
     return data

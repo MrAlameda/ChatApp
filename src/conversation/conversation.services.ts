@@ -64,6 +64,7 @@ export const conversationAdd = (req: any, res: Response) => {
     if (
         data.title
         && data.image_url
+        && data.anotherUser
     ) {
         conversationController.createConversation(data, id)
             .then(async (result: any) => {
@@ -79,7 +80,7 @@ export const conversationAdd = (req: any, res: Response) => {
             message: "hiciste algo mal",
             checa: {
                 title: 'string',
-                imageId: 'string',
+                image_id: 'string',
                 anotherUser: 'string'
             }
         })
